@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Async/Wait</title>
+  </head>
+  <body>
+    <p id="demo"></p>
+    <p id="demi"></p>
+    <p class="demy"></p>
+    <script>
+      // async function myDisplay() {
+      //   let myPromise = new Promise(function (myResolve, myReject) {
+      //     setTimeout(function () {
+      //       myResolve("I love You !!");
+      //     }, 3000);
+      //   });
+      //   document.getElementById("demo").innerHTML = await myPromise;
+      // }
+      // myDisplay();
+
+      async function myFunction() {
+        return "Hello";
+      }
+      function myFunction() {
+        return Promise.resolve("Hello");
+      }
+      myFunction().then(
+        function (value) {
+          document.getElementById("demo").innerHTML = value;
+        },
+        function (error) {
+          document.getElementById("demo").innerHTML = error;
+        }
+      );
+
+      async function myDisplay() {
+        let myPromise = new Promise(function (resolve) {
+          resolve("I love you !!");
+        });
+        document.getElementById("demo").innerHTML = await myPromise;
+      }
+
+      myDisplay();
+    </script>
+  </body>
+</html>

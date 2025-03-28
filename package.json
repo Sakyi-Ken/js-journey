@@ -1,0 +1,26 @@
+{
+  "name": "js-journey",
+  "version": "1.0.0",
+  "description": "\"Microsoft learn - Introduction to Nodejs\"",
+  "main": "server.js",
+  "type": "module",
+  "bin": {
+    "note": "./intro-to-nodejs/coli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakyi-ken/js-journey.git"
+  },
+  "author": "Sakyi-Ken",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sakyi-ken/js-journey/issues"
+  },
+  "homepage": "https://github.com/sakyi-ken/js-journey#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
