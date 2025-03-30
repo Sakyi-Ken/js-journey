@@ -14,7 +14,7 @@ class Console {
   addGame(game) {
     this.games.push(game);
   }
-  showGames(cd) {
+  showGames() {
     console.log("List of games coming soon!");
   }
 }
@@ -27,5 +27,5 @@ myConsole.addGame(new Game('Super Racing', 'Racing'));
 console.log(myConsole.games); // [Game { title: 'Space Adventure', genre: 'Action' }, Game { title: 'Super Racing', genre: 'Racing' }]
 // console.log(myConsole.games[0].title); // Space Adventure
 
-console.log(myConsole.games[0]); // Space Adventure
+console.log(myConsole.games[0]); //{title: 'Space Adventure', genre: 'Action'} 
 console.log(myConsole.games[1].title); // Super Racing
