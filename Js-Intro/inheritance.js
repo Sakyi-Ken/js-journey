@@ -13,10 +13,9 @@ class Cat extends Animal {}
 
 class Dog extends Animal {
   constructor(name, breed, sound) {
-    super(name);
+    super(name, sound);
     console.log("An instance of Dog is being created.");
     this.breed = breed;
-    this.sound = sound;
   }
 
   speak() {
