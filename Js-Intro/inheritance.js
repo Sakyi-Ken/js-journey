@@ -51,8 +51,8 @@ class ArcadeGame extends VideoGame {
     console.log(`Platform: ${this.platform}`);
   }
 }
-//let game1 = new VideoGame("Super Mario Bros", "Platformer");  // Title: Super Mario Bros, Genre: Platformer
-//game1.displayInfo();  // Title: Super Mario Bros, Genre: Platformer
+let game1 = new VideoGame("Super Mario Bros", "Platformer");  // Title: Super Mario Bros, Genre: Platformer
+game1.displayInfo();  // Title: Super Mario Bros, Genre: Platformer
 let game2 = new ArcadeGame("Street Fighter", "Fighting", "Arcade");   // Title: Street Fighter, Genre: Fighting, Platform: Arcade                                                     
 game2.displayInfo();  // Title: Street Fighter, Genre: Fighting, Platform: Arcade
 
