@@ -49,7 +49,7 @@
 
       let lastPromise = new Promise(function (myResolve, myReject) {
         let req = new XMLHttpRequest();
-        req.opwn("GET", "mycar.html");
+        req.open("GET", "mycar.html");
         req.onload = function () {
           if (req.status == 200) {
             myResolve(req.response);
