@@ -22,6 +22,10 @@
   "homepage": "https://github.com/sakyi-ken/js-journey#readme",
   "dependencies": {
     "express": "^4.21.2",
+    "formidable": "^3.5.2",
     "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/formidable": "^3.4.5"
   }
 }
