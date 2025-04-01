@@ -2,10 +2,32 @@
 
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
+import { newNote } from './notes.js'
+
+const listNotes = notes => {
+  notes.forEach(({id, content, tags}) => {
+    console.log('id ', id)
+    console.log('tags: ', tags)
+    console.log('content: ', content)
+    console.log('\n')
+  })
+}
 
 yargs(hideBin(process.argv))
-  .command('curl <url>', 'fetch the contents of the URL', () => {}, (argv) => {
-    console.info(argv)
+  .command('new <note>', 'Create a new note', yargs => {
+    return yargs.positional('note', {
+      type: 'string',
+      description: 'The content of the note to create', 
+    })
+  }, async (argv) => {
+    const tags = argv.tags ? argv.tags.split(',') : []
+    const note = await newNote(argv.note, tags)
+    console.log('New note! ', note)
+  })
+  .option('tags', {
+    alias: 't',
+    type: 'string',
+    description: 'tags to add to the note'
   })
   .demandCommand(1)
   .parse()
