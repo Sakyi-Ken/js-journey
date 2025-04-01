@@ -3,7 +3,10 @@
 // }
 
 export function myDateTime() {
-  // const date = new Date();
-  // return date.toISOString();
   return Date();
+}
+
+export default function() {
+  const date = new Date();
+  return date.toISOString();
 }

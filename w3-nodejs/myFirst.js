@@ -1,12 +1,14 @@
 //var http = require('http');
 
-import {createServer} from 'http';
+// import {createServer} from 'http';
 import {myDateTime} from './myfirstModule.js';
+
+import http from 'http';
 //import {url} from 'url';
 //var url = require('url');
 import {parse} from 'url';
 
-createServer(function (req, res) {
+http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write('The date and time are currently: ' + myDateTime());
   res.write(req.url);
