@@ -21,9 +21,12 @@
   },
   "homepage": "https://github.com/sakyi-ken/js-journey#readme",
   "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "formidable": "^3.5.2",
     "nodemailer": "^6.10.0",
+    "nodemon": "^3.1.9",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
