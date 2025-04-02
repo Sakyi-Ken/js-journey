@@ -1,12 +1,11 @@
-import { write } from 'node:fs';
+//import { write } from 'node:fs';
 import fs from 'node:fs/promises'
-import path from 'node:path'
+//import path from 'node:path'
 
 const readPjson = async () => {
   //const pjsonPath = new URL('./package.json', import.meta.url).pathname
-  const pjsonPath = 'C://Users//EMMANUEL//OneDrive - University of Ghana//DCITS//js journey';
   //console.log(pjsonPath)
-  console.log(JSON.parse(await fs.readFile(pjsonPath, 'utf-8')))
+  console.log(await fs.readFile('../server.js', 'utf-8'))
 }
 
 // const readPjson = async () => {
@@ -15,11 +14,11 @@ const readPjson = async () => {
 //   console.log(JSON.parse(await fs.readFile(pjsonPath, 'utf-8')));
 // };
 
-//readPjson();
+readPjson();
 
 const writeFile = async () => {
-  const newFile = new URL('./demo.js', import.meta.url).pathname
-  await fs.writeFile(newFile, 'console.log("yooooo!")')
+  //const newFile = new URL('./demo.js', import.meta.url).pathname
+  await fs.writeFile('./demo.js', 'console.log("yooooo!")')
 }
 
 writeFile();
