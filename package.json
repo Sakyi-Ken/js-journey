@@ -8,7 +8,8 @@
     "note": "./intro-to-nodejs/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node postgres/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,10 +24,12 @@
   "dependencies": {
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "express": "^4.21.2",
     "formidable": "^3.5.2",
     "nodemailer": "^6.10.0",
     "nodemon": "^3.1.9",
+    "pg": "^8.16.3",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
