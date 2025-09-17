@@ -118,3 +118,35 @@ VALUES
   (3, 'Uni-ball', 'Writing Utensils'),
   (3, 'Hammer Mill', 'Paper'),
   (3, 'Stamford Labels', 'Custom Forms');
+
+SELECT b.branch_name, SUM(ww.total_sales) AS branch_total_sales 
+FROM Works_With ww
+JOIN Employee e ON ww.emp_id = e.emp_id
+JOIN Branch b ON e.branch_id = b.branch_id
+GROUP BY b.branch_name
+ORDER BY branch_total_sales DESC
+
+CREATE VIEW HighEarners AS 
+SELECT * FROM Employee
+WHERE salary > (
+SELECT AVG(salary) 
+FROM Employee
+);
+
+SELECT * FROM HighEarners;
+
+CREATE VIEW BranchManagers AS 
+SELECT 
+b.branch_name,
+CONCAT(e.first_name, ' ', e.last_name) AS manager_name,
+b.mgr_start_date
+FROM Branch b
+JOIN Employee e ON b.mgr_id = e.emp_id;
+
+CREATE OR REPLACE VIEW BranchManagers AS
+SELECT
+b.branch_name,
+CONCAT(e.first_name, ' ', e.last_name) AS manager_name,
+b.mgr_start_date
+FROM Branch b
+LEFT JOIN Employee e ON b.mgr_id = e.emp_id;
