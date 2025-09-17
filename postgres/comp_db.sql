@@ -160,3 +160,93 @@ INSERT INTO Works_With (emp_id, client_id, total_sales)
 VALUES (108, 407, 45000);
 
 COMMIT;
+
+SELECT * FROM Client WHERE client_id = 407;
+SELECT * FROM Works_With WHERE client_id = 40;
+
+CREATE OR REPLACE FUNCTION check_salary_limit()
+RETURNS TRIGGER AS $$
+DECLARE
+avg_salary NUMERIC;
+BEGIN
+-- get current average salary for that branch
+SELECT COALESCE(AVG(salary), 0)
+INTO avg_salary
+FROM Employee
+WHERE branch_id = NEW.branch_id;
+
+-- if the new salary is greater than 2x the average, block it
+IF NEW.salary > 2 * avg_salary THEN
+RAISE EXCEPTION 'Salary (%.2f) exceeds twice the branch average (%.2f)',
+NEW.salary, avg_salary;
+END IF;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER salary_check_before_insert
+BEFORE INSERT ON Employee
+FOR EACH ROW
+EXECUTE FUNCTION check_salary_limit();
+
+CREATE TRIGGER salary_check_before_update
+BEFORE UPDATE OF salary, branch_id ON Employee
+FOR EACH ROW
+EXECUTE FUNCTION check_salary_limit();
+
+INSERT INTO Employee (emp_id, first_name, last_name, birth_date, sex, salary, branch_id)
+VALUES (200, 'Test', 'User', '1990-01-01', 'F', 200000, 2);
+
+SELECT * FROM Employee 
+WHERE salary < (SELECT AVG(salary) FROM Employee)
+
+SELECT AVG(salary) AS AVERAGE_SALARY FROM Employee WHERE branch_id = 2;
+
+-- 1) Trigger function
+CREATE OR REPLACE FUNCTION check_salary_limit()
+RETURNS TRIGGER AS $$
+DECLARE
+  avg_salary NUMERIC;
+BEGIN
+  -- compute the current average salary for the target branch,
+  -- excluding the row being changed (important for UPDATE).
+  SELECT AVG(salary)
+  INTO avg_salary
+  FROM Employee
+  WHERE branch_id = NEW.branch_id
+  AND emp_id IS DISTINCT FROM NEW.emp_id;
+
+  -- If there are no other employees in the branch, avg_salary will be NULL.
+  -- In that case we skip the check (allow the insert/update).
+  IF avg_salary IS NULL THEN
+    RETURN NEW;
+  END IF;
+
+  -- If the new salary is more than twice the branch average, reject it.
+  IF NEW.salary > 2 * avg_salary THEN
+    RAISE EXCEPTION 'Salary % exceeds twice the branch average %',
+    NEW.salary, avg_salary;
+  END IF;
+
+  -- Allow the change
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- 2) Triggers that call the function
+CREATE TRIGGER salary_check_before_insert
+BEFORE INSERT ON Employee
+FOR EACH ROW
+EXECUTE FUNCTION check_salary_limit();
+
+CREATE TRIGGER salary_check_before_update
+BEFORE UPDATE OF salary, branch_id ON Employee
+FOR EACH ROW
+EXECUTE FUNCTION check_salary_limit();
+
+CREATE ROLE manager;
+
+GRANT SELECT, UPDATE ON Employee TO manager;
+GRANT SELECT, UPDATE ON Works_with TO manager;
