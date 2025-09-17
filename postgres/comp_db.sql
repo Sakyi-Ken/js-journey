@@ -150,3 +150,13 @@ CONCAT(e.first_name, ' ', e.last_name) AS manager_name,
 b.mgr_start_date
 FROM Branch b
 LEFT JOIN Employee e ON b.mgr_id = e.emp_id;
+
+BEGIN;
+
+INSERT INTO Client (client_id, client_name, branch_id)
+VALUES (407, 'Green Energy Solutions', 3);
+
+INSERT INTO Works_With (emp_id, client_id, total_sales)
+VALUES (108, 407, 45000);
+
+COMMIT;
